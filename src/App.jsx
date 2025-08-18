@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import DarkVeil from "./components/DarkVeil.jsx";
+import DarkVeil from "./components/DarkVeil.jsx"
 import Navbar from "./components/Navbar.jsx";
 import Home from "./pages/Home.jsx";
 import Projects from "./pages/Projects.jsx";
