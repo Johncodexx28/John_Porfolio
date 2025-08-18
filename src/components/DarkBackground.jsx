@@ -73,7 +73,7 @@ void main(){
 }
 `;
 
-export default function DarkVeil({
+export default function DarkBackground({
   hueShift = 0,
   noiseIntensity = 0,
   scanlineIntensity = 0,
@@ -151,10 +151,5 @@ export default function DarkVeil({
     warpAmount,
     resolutionScale,
   ]);
-  return (
-    <canvas
-      ref={ref}
-      className="w-full h-full block"
-    />
-  );
+  return <canvas ref={ref} className="w-full h-full block" />;
 }

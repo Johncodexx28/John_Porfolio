@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import DarkVeil from "./components/DarkVeil.jsx";
+import DarkBackground from "./components/DarkBackground.jsx";
 import Navbar from "./components/Navbar.jsx";
 import Home from "./pages/Home.jsx";
 import Projects from "./pages/Projects.jsx";
@@ -10,7 +10,7 @@ export default function App() {
     <Router>
       <div style={{ width: "100%", height: "100vh", position: "relative" }}>
         {/* Background effect */}
-        <DarkVeil/>
+        <DarkBackground />
 
         {/* Content overlay */}
         <div className="absolute inset-0 z-10">
