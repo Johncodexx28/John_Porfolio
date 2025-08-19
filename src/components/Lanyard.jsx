@@ -1,4 +1,5 @@
 "use client";
+import "./Lanyard.css";
 import { useEffect, useRef, useState } from "react";
 import { Canvas, extend, useFrame } from "@react-three/fiber";
 import {
@@ -26,7 +27,7 @@ import * as THREE from "three";
 extend({ MeshLineGeometry, MeshLineMaterial });
 
 export default function Lanyard({
-  position = [0, 0, 30],
+  position = [0, 0, 15],
   gravity = [0, -40, 0],
   fov = 20,
   transparent = true,
