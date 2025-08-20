@@ -1,41 +1,108 @@
 import { motion as Motion } from "framer-motion";
+import { useState, useEffect } from "react";
 import Lanyard from "../components/Lanyard.jsx";
 import Socials from "../components/Socials.jsx";
 
 const About = () => {
+  const [screenSize, setScreenSize] = useState("desktop");
+
+  useEffect(() => {
+    const handleResize = () => {
+      const width = window.innerWidth;
+      if (width < 640) {
+        setScreenSize("mobile");
+      } else if (width < 1024) {
+        setScreenSize("tablet");
+      } else {
+        setScreenSize("desktop");
+      }
+    };
+
+    // Set initial size
+    handleResize();
+
+    // Add event listener
+    window.addEventListener("resize", handleResize);
+
+    // Cleanup
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  // Responsive configurations for Lanyard
+  const getLanyardConfig = () => {
+    switch (screenSize) {
+      case "mobile":
+        return {
+          position: [0, 0, 25],
+          fov: 25,
+          gravity: [0, -30, 0],
+          containerClass: "w-full h-[250px] sm:h-[280px]",
+        };
+      case "tablet":
+        return {
+          position: [0, 0, 20],
+          fov: 22,
+          gravity: [0, -35, 0],
+          containerClass: "w-full h-[320px] md:h-[350px]",
+        };
+      default: // desktop
+        return {
+          position: [0, 0, 15],
+          fov: 20,
+          gravity: [0, -40, 0],
+          containerClass: "w-full h-[400px] lg:h-[450px]",
+        };
+    }
+  };
+
+  const lanyardConfig = getLanyardConfig();
+
   return (
     <section
-      className="mx-6 sm:mx-10 lg:mx-20 border-4 rounded-2xl px-6 sm:px-10 lg:px-20"
-      style={{ borderColor: "#D93F87" }}
+      className="mx-4 sm:mx-8 lg:mx-20 border-4 border-[#D93F87] rounded-2xl 
+       px-4 sm:px-8 lg:px-20 py-6 sm:py-8 lg:py-12"
     >
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-12 items-center">
         {/* Left side - About text */}
         <Motion.div
-          initial={{ opacity: 0, x: -50 }}
-          whileInView={{ opacity: 1, x: 0 }}
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="space-y-4"
+          className="space-y-4 sm:space-y-5 text-center lg:text-left order-2 lg:order-1"
         >
-          <h1 className="text-3xl font-bold text-[#D93F87]">About Me</h1>
-          <p className="text-lg text-gray-300 leading-relaxed">
-            Hi, I’m John Lloyd P. Cabanig. I’m passionate about building
+          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#D93F87] leading-tight">
+            About Me
+          </h1>
+          <p className="text-sm sm:text-base lg:text-lg text-gray-300 leading-relaxed max-w-prose">
+            Hi, I'm John Lloyd P. Cabanig. I'm passionate about building
             interactive, creative, and functional web applications. My work
             focuses on clean UI, smooth animations, and meaningful digital
             experiences.
           </p>
-          <Socials />
+          <div className="flex justify-center lg:justify-start pt-2">
+            <Socials />
+          </div>
         </Motion.div>
 
         {/* Right side - Lanyard */}
         <Motion.div
-          initial={{ opacity: 0, x: 50 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8 }}
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
           viewport={{ once: true }}
-          className="flex justify-center"
+          className="flex justify-center items-center order-1 lg:order-2"
         >
-          <Lanyard />
+          <div
+            className={`${lanyardConfig.containerClass} flex items-center justify-center`}
+          >
+            <Lanyard
+              position={lanyardConfig.position}
+              fov={lanyardConfig.fov}
+              gravity={lanyardConfig.gravity}
+              transparent={true}
+            />
+          </div>
         </Motion.div>
       </div>
     </section>
