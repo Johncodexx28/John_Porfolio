@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import { motion as Motion, AnimatePresence } from "framer-motion";
 
@@ -20,10 +19,18 @@ export default function Navbar() {
 
       {/* Desktop Links */}
       <div className="hidden sm:flex gap-6 font-medium">
-        <Link to="/">Home</Link>
-        <Link to="/about">About</Link>
-        <Link to="/projects">Projects</Link>
-        <Link to="/contact">Contacts</Link>
+        <a href="#home" className="hover:text-purple-400">
+          Home
+        </a>
+        <a href="#about" className="hover:text-purple-400">
+          About
+        </a>
+        <a href="#projects" className="hover:text-purple-400">
+          Projects
+        </a>
+        <a href="#contact" className="hover:text-purple-400">
+          Contact
+        </a>
       </div>
 
       {/* Mobile Hamburger */}
@@ -33,7 +40,7 @@ export default function Navbar() {
         </button>
       </div>
 
-      {/* Mobile Menu Dropdown with motion */}
+      {/* Mobile Menu Dropdown */}
       <AnimatePresence>
         {isOpen && (
           <Motion.div
@@ -45,15 +52,18 @@ export default function Navbar() {
                        bg-black/90 text-white rounded-lg shadow-lg
                        flex flex-col items-start p-4 space-y-2 sm:hidden"
           >
-            <Link to="/" onClick={() => setIsOpen(false)}>
+            <a href="#home" onClick={() => setIsOpen(false)}>
               Home
-            </Link>
-            <Link to="/Projects" onClick={() => setIsOpen(false)}>
+            </a>
+            <a href="#about" onClick={() => setIsOpen(false)}>
+              About
+            </a>
+            <a href="#projects" onClick={() => setIsOpen(false)}>
               Projects
-            </Link>
-            <Link to="/Contacts" onClick={() => setIsOpen(false)}>
-              Contacts
-            </Link>
+            </a>
+            <a href="#contact" onClick={() => setIsOpen(false)}>
+              Contact
+            </a>
           </Motion.div>
         )}
       </AnimatePresence>
