@@ -166,7 +166,7 @@ const Navbar = ({
             className="card-nav-cta-button"
             style={{ backgroundColor: buttonBgColor, color: buttonTextColor }}
           >
-            Get Started
+            Contact Me
           </button>
         </div>
 

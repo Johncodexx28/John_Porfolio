@@ -4,7 +4,8 @@ import Hero from "./components/Hero.jsx";
 import About from "./pages/About.jsx";
 import Projects from "./pages/Projects.jsx";
 import Contact from "./pages/Contact.jsx";
-import Navcon from "../public/navcon.png";
+import Navcon from "./assets/navcon.png";
+import Interests from "./components/Interests.jsx";
 
 export default function App() {
   const items = [
@@ -14,8 +15,8 @@ export default function App() {
       textColor: "#fff",
       links: [
         { label: "Who I Am", ariaLabel: "About Me" },
-        { label: "Experience", ariaLabel: "My Experience" },
-        { label: "Resume", ariaLabel: "View Resume" },
+        { label: "Interest", ariaLabel: "My Interests and Activities" },
+        { label: "Achievements", ariaLabel: "Achievements" },
       ],
     },
     {
@@ -36,19 +37,9 @@ export default function App() {
       bgColor: "#1E1030",
       textColor: "#fff",
       links: [
-        { label: "Frontend", ariaLabel: "Frontend Development Skills" },
-        { label: "Backend", ariaLabel: "Backend Development Skills" },
-        { label: "Tools", ariaLabel: "Developer Tools & Software" },
-      ],
-    },
-    {
-      label: "Contact",
-      bgColor: "#271E37",
-      textColor: "#fff",
-      links: [
-        { label: "Email", ariaLabel: "Email Me" },
-        { label: "GitHub", ariaLabel: "GitHub Profile" },
-        { label: "LinkedIn", ariaLabel: "LinkedIn Profile" },
+        { label: "Languages", ariaLabel: "Programming Languages" },
+        { label: "Frameworks", ariaLabel: "Libraries and Frameworks" },
+        { label: "Tools", ariaLabel: "Developer Tools" },
       ],
     },
   ];
@@ -72,8 +63,11 @@ export default function App() {
           ease="power3.out"
           className="backdrop-blur-lg border border-white/20 rounded-2xl shadow-lg"
         />
-        <Hero/>
-        <About/>
+        <Hero />
+        <About />
+      </div>
+      <div className="m-0 w-full  bg-slate-950 bg-[radial-gradient(circle_500px_at_50%_200px,#3e3e3e,transparent)]">
+        <Interests />
       </div>
     </div>
   );

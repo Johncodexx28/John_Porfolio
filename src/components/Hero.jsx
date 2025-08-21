@@ -1,5 +1,5 @@
 import { motion as Motion } from "framer-motion";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ArrowDown } from "lucide-react";
 import TextType from "../components/TextType.jsx";
 
 const Hero = () => {
@@ -10,6 +10,8 @@ const Hero = () => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
+        viewport={{ once: false, amount: 0.5 }}
+        whileInView={{ opacity: 1, y: 0 }}
       >
         Hi, I’m <br />
         <span>John Lloyd Cabanig</span>
@@ -20,15 +22,17 @@ const Hero = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.2, duration: 0.6 }}
+        viewport={{ once: false, amount: 0.5 }}
+        whileInView={{ opacity: 1, y: 0 }}
       >
         <span className="text-gray-300 font-medium text-base sm:text-lg md:text-xl">
           Aspiring{" "}
         </span>
         <span className="text-xl sm:text-2xl md:text-3xl font-bold font-mono">
           <TextType
-            text={["FullStack-Developer"]}
+            text={["FullStack-Developer", "Web-Designer"]}
             typingSpeed={75}
-            pauseDuration={1500}
+            pauseDuration={2000}
             showCursor={true}
             cursorCharacter="|"
             textColors={["#D93F87"]}
@@ -40,6 +44,8 @@ const Hero = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.4, duration: 0.6 }}
+        viewport={{ once: false, amount: 0.5 }}
+        whileInView={{ opacity: 1, y: 0 }}
       >
         Every error is my motivation.
       </Motion.p>
@@ -50,6 +56,8 @@ const Hero = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.6, duration: 0.6 }}
+        viewport={{ once: false, amount: 0.5 }}
+        whileInView={{ opacity: 1, y: 0 }}
       >
         <a
           href="#projects"
@@ -59,10 +67,10 @@ const Hero = () => {
         </a>
 
         <a
-          href="#contact"
-          className="px-6 py-3 rounded-2xl border border-gray-500 hover:bg-gray-800 text-gray-200 font-medium transition flex items-center justify-center w-full sm:w-auto"
+          href="#cv"
+          className="px-6 py-3 rounded-2xl border border-gray-500 hover:bg-gray-800 gap-2 text-gray-200 font-medium transition flex items-center justify-center w-full sm:w-auto"
         >
-          Contact Me
+          Download Cv <ArrowDown size={18} />
         </a>
       </Motion.div>
     </section>
