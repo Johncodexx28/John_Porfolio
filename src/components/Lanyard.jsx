@@ -26,43 +26,23 @@ import * as THREE from "three";
 extend({ MeshLineGeometry, MeshLineMaterial });
 
 export default function Lanyard({
-  position = [0, 0, 15],
+  position = [0, 0, 20],
   gravity = [0, -40, 0],
   fov = 20,
   transparent = true,
 }) {
-  const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
-
-  useEffect(() => {
-    const updateDimensions = () => {
-      setDimensions({
-        width: window.innerWidth,
-        height: window.innerHeight,
-      });
-    };
-
-    updateDimensions();
-    window.addEventListener("resize", updateDimensions);
-    return () => window.removeEventListener("resize", updateDimensions);
-  }, []);
-
   return (
-    <div className="relative z-0 w-full h-full flex justify-center items-center">
+    <div className="relative z-0 w-full h-screen flex justify-center items-center transform scale-100 origin-center">
       <Canvas
         camera={{ position: position, fov: fov }}
-        gl={{
-          alpha: transparent,
-          antialias: true,
-          powerPreference: "high-performance",
-        }}
+        gl={{ alpha: transparent }}
         onCreated={({ gl }) =>
           gl.setClearColor(new THREE.Color(0x000000), transparent ? 0 : 1)
         }
-        dpr={[1, 2]} // Responsive pixel ratio
       >
         <ambientLight intensity={Math.PI} />
         <Physics gravity={gravity} timeStep={1 / 60}>
-          <Band screenWidth={dimensions.width} />
+          <Band />
         </Physics>
         <Environment blur={0.75}>
           <Lightformer
@@ -98,8 +78,7 @@ export default function Lanyard({
     </div>
   );
 }
-
-function Band({ maxSpeed = 50, minSpeed = 0, screenWidth = 1024 }) {
+function Band({ maxSpeed = 50, minSpeed = 0 }) {
   const band = useRef(),
     fixed = useRef(),
     j1 = useRef(),
@@ -110,23 +89,13 @@ function Band({ maxSpeed = 50, minSpeed = 0, screenWidth = 1024 }) {
     ang = new THREE.Vector3(),
     rot = new THREE.Vector3(),
     dir = new THREE.Vector3();
-
-  // Responsive segment properties
-  const getSegmentProps = () => {
-    const isMobile = screenWidth < 640;
-    const isTablet = screenWidth < 1024;
-
-    return {
-      type: "dynamic",
-      canSleep: true,
-      colliders: false,
-      angularDamping: isMobile ? 6 : isTablet ? 5 : 4,
-      linearDamping: isMobile ? 6 : isTablet ? 5 : 4,
-    };
+  const segmentProps = {
+    type: "dynamic",
+    canSleep: true,
+    colliders: false,
+    angularDamping: 4,
+    linearDamping: 4,
   };
-
-  const segmentProps = getSegmentProps();
-
   const { nodes, materials } = useGLTF(cardGLB);
   const texture = useTexture(lanyard);
   const [curve] = useState(
@@ -140,19 +109,13 @@ function Band({ maxSpeed = 50, minSpeed = 0, screenWidth = 1024 }) {
   );
   const [dragged, drag] = useState(false);
   const [hovered, hover] = useState(false);
+  const [isSmall, setIsSmall] = useState(
+    () => typeof window !== "undefined" && window.innerWidth < 1024
+  );
 
-  // Responsive rope joint distances
-  const getRopeDistance = () => {
-    if (screenWidth < 640) return 0.8; // Mobile - shorter rope
-    if (screenWidth < 1024) return 0.9; // Tablet
-    return 1; // Desktop
-  };
-
-  const ropeDistance = getRopeDistance();
-
-  useRopeJoint(fixed, j1, [[0, 0, 0], [0, 0, 0], ropeDistance]);
-  useRopeJoint(j1, j2, [[0, 0, 0], [0, 0, 0], ropeDistance]);
-  useRopeJoint(j2, j3, [[0, 0, 0], [0, 0, 0], ropeDistance]);
+  useRopeJoint(fixed, j1, [[0, 0, 0], [0, 0, 0], 1]);
+  useRopeJoint(j1, j2, [[0, 0, 0], [0, 0, 0], 1]);
+  useRopeJoint(j2, j3, [[0, 0, 0], [0, 0, 0], 1]);
   useSphericalJoint(j3, card, [
     [0, 0, 0],
     [0, 1.5, 0],
@@ -164,6 +127,16 @@ function Band({ maxSpeed = 50, minSpeed = 0, screenWidth = 1024 }) {
       return () => void (document.body.style.cursor = "auto");
     }
   }, [hovered, dragged]);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsSmall(window.innerWidth < 1024);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   useFrame((state, delta) => {
     if (dragged) {
@@ -206,68 +179,28 @@ function Band({ maxSpeed = 50, minSpeed = 0, screenWidth = 1024 }) {
   curve.curveType = "chordal";
   texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
 
-  // Responsive positioning
-  const getResponsivePositions = () => {
-    const isMobile = screenWidth < 640;
-    const isTablet = screenWidth < 1024;
-
-    if (isMobile) {
-      return {
-        spacing: 0.4,
-        cardOffset: 1.6,
-        scale: 1.8,
-      };
-    } else if (isTablet) {
-      return {
-        spacing: 0.45,
-        cardOffset: 1.8,
-        scale: 2.0,
-      };
-    } else {
-      return {
-        spacing: 0.5,
-        cardOffset: 2.0,
-        scale: 2.25,
-      };
-    }
-  };
-
-  const responsive = getResponsivePositions();
-
   return (
     <>
       <group position={[0, 4, 0]}>
         <RigidBody ref={fixed} {...segmentProps} type="fixed" />
-        <RigidBody
-          position={[responsive.spacing, 0, 0]}
-          ref={j1}
-          {...segmentProps}
-        >
+        <RigidBody position={[0.5, 0, 0]} ref={j1} {...segmentProps}>
+          <BallCollider args={[0.1]} />
+        </RigidBody>
+        <RigidBody position={[1, 0, 0]} ref={j2} {...segmentProps}>
+          <BallCollider args={[0.1]} />
+        </RigidBody>
+        <RigidBody position={[1.5, 0, 0]} ref={j3} {...segmentProps}>
           <BallCollider args={[0.1]} />
         </RigidBody>
         <RigidBody
-          position={[responsive.spacing * 2, 0, 0]}
-          ref={j2}
-          {...segmentProps}
-        >
-          <BallCollider args={[0.1]} />
-        </RigidBody>
-        <RigidBody
-          position={[responsive.spacing * 3, 0, 0]}
-          ref={j3}
-          {...segmentProps}
-        >
-          <BallCollider args={[0.1]} />
-        </RigidBody>
-        <RigidBody
-          position={[responsive.cardOffset, 0, 0]}
+          position={[2, 0, 0]}
           ref={card}
           {...segmentProps}
           type={dragged ? "kinematicPosition" : "dynamic"}
         >
           <CuboidCollider args={[0.8, 1.125, 0.01]} />
           <group
-            scale={responsive.scale}
+            scale={2.25}
             position={[0, -1.2, -0.05]}
             onPointerOver={() => hover(true)}
             onPointerOut={() => hover(false)}
@@ -307,17 +240,11 @@ function Band({ maxSpeed = 50, minSpeed = 0, screenWidth = 1024 }) {
         <meshLineMaterial
           color="white"
           depthTest={false}
-          resolution={
-            screenWidth < 640
-              ? [800, 1600]
-              : screenWidth < 1024
-              ? [1000, 1800]
-              : [1000, 1000]
-          }
+          resolution={isSmall ? [1000, 2000] : [1000, 1000]}
           useMap
           map={texture}
           repeat={[-4, 1]}
-          lineWidth={screenWidth < 640 ? 0.8 : 1}
+          lineWidth={1}
         />
       </mesh>
     </>

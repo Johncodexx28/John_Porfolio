@@ -1,39 +1,79 @@
 import DarkBackground from "./components/DarkBackground.jsx";
-import Navbar from "./components/Navbar.jsx";
+import CardNav from "./components/CardNav.jsx";
 import Hero from "./components/Hero.jsx";
 import About from "./pages/About.jsx";
 import Projects from "./pages/Projects.jsx";
 import Contact from "./pages/Contact.jsx";
+import Navcon from "../public/navcon.png";
 
 export default function App() {
+  const items = [
+    {
+      label: "About",
+      bgColor: "#0D0716",
+      textColor: "#fff",
+      links: [
+        { label: "Who I Am", ariaLabel: "About Me" },
+        { label: "Experience", ariaLabel: "My Experience" },
+        { label: "Resume", ariaLabel: "View Resume" },
+      ],
+    },
+    {
+      label: "Projects",
+      bgColor: "#170D27",
+      textColor: "#fff",
+      links: [
+        { label: "Web Development", ariaLabel: "Web Development Projects" },
+        { label: "Web Design", ariaLabel: "UI and Web Design Projects" },
+        {
+          label: "Coding Journey",
+          ariaLabel: "Coding Documentations and Journey",
+        },
+      ],
+    },
+    {
+      label: "Skills",
+      bgColor: "#1E1030",
+      textColor: "#fff",
+      links: [
+        { label: "Frontend", ariaLabel: "Frontend Development Skills" },
+        { label: "Backend", ariaLabel: "Backend Development Skills" },
+        { label: "Tools", ariaLabel: "Developer Tools & Software" },
+      ],
+    },
+    {
+      label: "Contact",
+      bgColor: "#271E37",
+      textColor: "#fff",
+      links: [
+        { label: "Email", ariaLabel: "Email Me" },
+        { label: "GitHub", ariaLabel: "GitHub Profile" },
+        { label: "LinkedIn", ariaLabel: "LinkedIn Profile" },
+      ],
+    },
+  ];
+
   return (
-    <div className="relative w-full min-h-screen overflow-x-hidden scroll-smooth">
-      {/* Background effect */}
-      <DarkBackground />
-
-      {/* Overlay content */}
-      <div className="absolute inset-0 z-10 flex flex-col">
-        {/* Navbar always visible */}
-        <Navbar />
-
-        {/* Page content wrapper */}
-        <main className="flex-1 pt-20  max-w-6xl mx-auto w-full">
-          <section id="home">
-            <Hero />
-          </section>
-
-          <section id="about">
-            <About />
-          </section>
-
-          <section id="projects">
-            <Projects />
-          </section>
-
-          <section id="contact">
-            <Contact />
-          </section>
-        </main>
+    <div className="overflow-x-hidden text-stone-200 antialiased">
+      <div className="fixed inset-0 -z-10">
+        <div className="relative h-full w-full ">
+          <DarkBackground />
+        </div>
+      </div>
+      <div className="container mx-auto px-8">
+        <CardNav
+          logo={Navcon}
+          logoAlt="Company Logo"
+          items={items}
+          baseColor="rgba(255, 255, 255, 0.1)"
+          menuColor="#fff"
+          buttonBgColor="#D93F87"
+          buttonTextColor="#fff"
+          ease="power3.out"
+          className="backdrop-blur-lg border border-white/20 rounded-2xl shadow-lg"
+        />
+        <Hero/>
+        <About/>
       </div>
     </div>
   );
