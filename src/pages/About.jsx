@@ -1,92 +1,113 @@
 import { motion as Motion } from "framer-motion";
+import { useState, useEffect } from "react";
 import Lanyard from "../components/Lanyard.jsx";
-
-import { FaFacebook, FaInstagram, FaLinkedin, FaGithub } from "react-icons/fa";
+import Socials from "../components/Socials.jsx";
 
 const About = () => {
+  const [screenSize, setScreenSize] = useState("desktop");
+
+  useEffect(() => {
+    const handleResize = () => {
+      const width = window.innerWidth;
+      if (width < 640) {
+        setScreenSize("mobile");
+      } else if (width < 1024) {
+        setScreenSize("tablet");
+      } else {
+        setScreenSize("desktop");
+      }
+    };
+
+    // Set initial size
+    handleResize();
+
+    // Add event listener
+    window.addEventListener("resize", handleResize);
+
+    // Cleanup
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  // Responsive configurations for Lanyard
+  const getLanyardConfig = () => {
+    switch (screenSize) {
+      case "mobile":
+        return {
+          position: [0, 0, 25],
+          fov: 20,
+          gravity: [0, -30, 0],
+          containerClass: "w-full h-[250px] sm:h-[280px]",
+        };
+      case "tablet":
+        return {
+          position: [0, 0, 20],
+          fov: 20,
+          gravity: [0, -35, 0],
+          containerClass: "w-full h-[320px] md:h-[350px]",
+        };
+      default: // desktop
+        return {
+          position: [0, 0, 15],
+          fov: 20,
+          gravity: [0, -40, 0],
+          containerClass: "w-full h-[400px] lg:h-[450px]",
+        };
+    }
+  };
+
+  const lanyardConfig = getLanyardConfig();
+
   return (
-    <div>
-      <h1></h1>
-    </div>
+    <section
+      className="mx-4 sm:mx-8 lg:mx-28 border-4 border-[#D93F87] rounded-2xl 
+       px-4 sm:px-8 lg:px-20 py-6 sm:py-8 lg:py-12 mb-8"
+    >
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-12 items-center">
+        {/* Left side - About text */}
+        <Motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+          className="space-y-4 sm:space-y-5 text-center lg:text-left order-2 lg:order-1"
+        >
+          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#D93F87] leading-tight">
+            About Me
+          </h1>
+          <p className="text-sm sm:text-base lg:text-lg text-gray-300 leading-relaxed max-w-prose">
+            Hi, I'm John Lloyd P. Cabanig. I'm passionate about building
+            interactive, creative, and functional web applications. My work
+            focuses on clean UI, smooth animations, and meaningful digital
+            experiences.
+          </p>
+          <div className="flex justify-center lg:justify-start pt-2">
+            <Socials />
+          </div>
+        </Motion.div>
+
+        {/* Right side - Lanyard */}
+        <Motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          viewport={{ once: true }}
+          className="flex justify-center items-center order-1 lg:order-2"
+        >
+          <div
+            className={`${lanyardConfig.containerClass} flex items-center justify-center`}
+          >
+            <Lanyard
+              position={lanyardConfig.position}
+              fov={lanyardConfig.fov}
+              gravity={lanyardConfig.gravity}
+              transparent={true}
+            />
+          </div>
+        </Motion.div>
+      </div>
+    </section>
   );
 };
 
 export default About;
-
-
-//<div className="min-h-fit overflow-hidden pb-4 lg:mb-36">
-    //   <div className="flex flex-col sm:flex-col md:flex-row-reverse items-center justify-center mx-4 sm:mx-8 md:mx-12 lg:mx-20 mt-0 gap-6 md:gap-8 lg:gap-0 ">
-    //     <div className="w-full md:w-1/2 flex justify-center order-1 md:order-2">
-    //       <div className="w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-none lg:p-8">
-    //         <Lanyard />
-    //       </div>
-    //     </div>
-
-    //     <div className="w-full md:w-1/2 flex flex-col items-center md:items-start text-center md:text-left px-4 sm:px-6 order-2 md:order-1">
-    //       <Motion.h2
-    //         className="text-2xl sm:text-3xl md:text-4xl lg:text-4xl xl:text-5xl font-bold text-[#D93F87] mb-4 sm:mb-6"
-    //         initial={{ opacity: 0, y: 20 }}
-    //         whileInView={{ opacity: 1, y: 0 }}
-    //         transition={{ duration: 0.6 }}
-    //       >
-    //         About Me
-    //       </Motion.h2>
-
-    //       <Motion.p
-    //         className="text-gray-300 text-sm sm:text-base md:text-lg max-w-xs sm:max-w-md lg:max-w-lg mb-6 sm:mb-8 leading-relaxed"
-    //         initial={{ opacity: 0, y: 20 }}
-    //         whileInView={{ opacity: 1, y: 0 }}
-    //         transition={{ delay: 0.2, duration: 0.6 }}
-    //       >
-    //         Hi, I'm John Lloyd P. Cabanig. I'm passionate about building
-    //         interactive, creative, and functional web applications. My work
-    //         focuses on clean UI, smooth animations, and meaningful digital
-    //         experiences.
-    //       </Motion.p>
-
-    //       <Motion.div
-    //         className="flex gap-4 sm:gap-5 md:gap-6"
-    //         initial={{ opacity: 0, y: 20 }}
-    //         whileInView={{ opacity: 1, y: 0 }}
-    //         transition={{ delay: 0.4, duration: 0.6 }}
-    //       >
-    //         <a
-    //           href="https://github.com/yourusername"
-    //           target="_blank"
-    //           rel="noopener noreferrer"
-    //           className="text-gray-300 hover:text-[#D93F87] transition-colors duration-300 hover:scale-110 transform"
-    //           aria-label="GitHub Profile"
-    //         >
-    //           <FaGithub size={24} className="sm:w-7 sm:h-7 md:w-8 md:h-8" />
-    //         </a>
-    //         <a
-    //           href="https://instagram.com/yourusername"
-    //           target="_blank"
-    //           rel="noopener noreferrer"
-    //           className="text-gray-300 hover:text-[#D93F87] transition-colors duration-300 hover:scale-110 transform"
-    //           aria-label="Instagram Profile"
-    //         >
-    //           <FaInstagram size={24} className="sm:w-7 sm:h-7 md:w-8 md:h-8" />
-    //         </a>
-    //         <a
-    //           href="https://facebook.com/yourusername"
-    //           target="_blank"
-    //           rel="noopener noreferrer"
-    //           className="text-gray-300 hover:text-[#D93F87] transition-colors duration-300 hover:scale-110 transform"
-    //           aria-label="Facebook Profile"
-    //         >
-    //           <FaFacebook size={24} className="sm:w-7 sm:h-7 md:w-8 md:h-8" />
-    //         </a>
-    //         <a
-    //           href="https://linkedin.com/in/yourusername"
-    //           target="_blank"
-    //           rel="noopener noreferrer"
-    //           className="text-gray-300 hover:text-[#D93F87] transition-colors duration-300 hover:scale-110 transform"
-    //           aria-label="LinkedIn Profile"
-    //         >
-    //           <FaLinkedin size={24} className="sm:w-7 sm:h-7 md:w-8 md:h-8" />
-    //         </a>
-    //       </Motion.div>
-    //     </div>
-    //   </div>
-    // </div>
+  

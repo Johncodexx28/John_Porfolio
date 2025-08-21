@@ -1,7 +1,6 @@
 import { motion as Motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import TextType from "../components/TextType.jsx";
-import { h1 } from "framer-motion/client";
 
 const Hero = () => {
   return (
