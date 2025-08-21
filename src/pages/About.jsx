@@ -33,15 +33,16 @@ const About = () => {
     switch (screenSize) {
       case "mobile":
         return {
-          position: [0, 0, 25],
-          fov: 20,
+          position: [0, 0, 18], // closer (25 → 18)
+          fov: 15, // slightly narrower view = zoomed in
           gravity: [0, -30, 0],
-          containerClass: "w-full h-[250px] sm:h-[280px]",
+          containerClass: "w-full h-[280px] sm:h-[300px]", // slightly taller for better fit
         };
+
       case "tablet":
         return {
           position: [0, 0, 20],
-          fov: 20,
+          fov: 15,
           gravity: [0, -35, 0],
           containerClass: "w-full h-[320px] md:h-[350px]",
         };
