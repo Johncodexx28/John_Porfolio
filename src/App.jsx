@@ -65,8 +65,6 @@ export default function App() {
         />
         <Hero />
         <About />
-      </div>
-      <div className="m-0 w-full  bg-slate-950 bg-[radial-gradient(circle_500px_at_50%_200px,#3e3e3e,transparent)]">
         <Interests />
       </div>
     </div>

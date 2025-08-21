@@ -36,7 +36,8 @@ const Interests = () => {
 
   return (
     <Motion.div
-      className="w-full px-4 sm:px-8 lg:px-20 py-12 sm:py-16 lg:py-20 mb-8"
+      className=" px-4 sm:px-8 sm:mx-8 lg:px-10 lg:mx-28 py-12 sm:py-16 lg:py-20 mb-8 justify-between 
+      bg-white/10 backdrop-blur-lg border-4 border-white/20 shadow-lg rounded-2xl mx-4"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
@@ -54,7 +55,7 @@ const Interests = () => {
         Interests
       </Motion.h1>
 
-      <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-6 gap-6 justify-items-center">
+      <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-6 justify-items-center">
         {cards.map((card, index) => (
           <SpotlightCard
             key={index}
