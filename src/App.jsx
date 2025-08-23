@@ -6,6 +6,7 @@ import Projects from "./pages/Projects.jsx";
 import Contact from "./pages/Contact.jsx";
 import Navcon from "./assets/navcon.png";
 import Interests from "./components/Interests.jsx";
+import Achievements from "./components/Achievements.jsx";
 
 export default function App() {
   const items = [
@@ -66,6 +67,7 @@ export default function App() {
         <Hero />
         <About />
         <Interests />
+        <Achievements/>
       </div>
     </div>
   );

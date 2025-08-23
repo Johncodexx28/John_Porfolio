@@ -4,7 +4,7 @@ import { motion as Motion } from "framer-motion";
 const SpotlightCard = ({
   children,
   className = "",
-  spotlightColor = "rgba(255, 255, 255, 0.25)",
+  spotlightColor = "rgba(52, 0, 255, 0.25)",
   backgroundImage = null,
 }) => {
   const divRef = useRef(null);
