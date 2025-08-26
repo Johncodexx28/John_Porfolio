@@ -34,9 +34,9 @@ const About = () => {
       case "mobile":
         return {
           position: [0, 0, 18], // closer (25 → 18)
-          fov: 15, // slightly narrower view = zoomed in
+          fov: 15,
           gravity: [0, -30, 0],
-          containerClass: "w-full h-[280px] sm:h-[300px]", // slightly taller for better fit
+          containerClass: "w-full h-[280px] sm:h-[300px]",
         };
 
       case "tablet":
@@ -46,9 +46,9 @@ const About = () => {
           gravity: [0, -35, 0],
           containerClass: "w-full h-[320px] md:h-[350px]",
         };
-      default: // desktop
+      default:
         return {
-          position: [0, 0, 15],
+          position: [0, 0, 12],
           fov: 20,
           gravity: [0, -40, 0],
           containerClass: "w-full h-[400px] lg:h-[450px]",
@@ -60,7 +60,6 @@ const About = () => {
 
   return (
     <>
-      {/* Custom Scrollbar Styles */}
       <style jsx>{`
         .custom-scrollbar {
           scrollbar-width: thin;
@@ -91,10 +90,10 @@ const About = () => {
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
         viewport={{ once: false }}
-        className="mx-4 sm:mx-8 lg:mx-28 border-4 border-[#D93F87] rounded-2xl 
-         px-4 sm:px-8 lg:px-20 py-6 sm:py-8 lg:py-12 mb-24"
+        className="mx-4 sm:mx-8 lg:mx-28 
+         px-4 sm:px-8 lg:px-20 sm:py-8 lg:py-12 mb-24"
       >
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-12 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-12 items-center lg:divide-x lg:divide-[#D93F87]">
           {/* Left side - About text */}
           <Motion.div
             initial={{ opacity: 0, y: 30 }}

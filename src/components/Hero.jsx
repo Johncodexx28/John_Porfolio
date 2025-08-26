@@ -1,5 +1,5 @@
 import { motion as Motion } from "framer-motion";
-import { ArrowRight, ArrowDown } from "lucide-react";
+import { ArrowRight, Download } from "lucide-react";
 import TextType from "../components/TextType.jsx";
 
 const Hero = () => {
@@ -52,7 +52,7 @@ const Hero = () => {
 
       {/* CTA Buttons */}
       <Motion.div
-        className="mt-6 flex flex-col sm:flex-row gap-4 justify-center h:w-1/2"
+        className="mt-6 flex flex-col sm:flex-row gap-[clamp(0.5rem,2vw,1rem)] justify-center h:w-1/2"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.6, duration: 0.6 }}
@@ -61,16 +61,16 @@ const Hero = () => {
       >
         <a
           href="#projects"
-          className="px-6 py-3 rounded-2xl bg-[#D93F87] hover:bg-[#b82f6b] text-white font-medium shadow-lg flex items-center justify-center gap-2 transition w-full sm:w-auto"
+          className="px-[clamp(1rem,3vw,1rem)] py-[clamp(0.6rem,2vw,1rem)] rounded-2xl bg-[#D93F87] hover:bg-[#b82f6b] text-white font-medium shadow-lg flex items-center justify-center gap-2 transition w-full sm:w-auto text-[clamp(0.9rem,2vw,1rem)]"
         >
           View Projects <ArrowRight size={18} />
         </a>
 
         <a
           href="#cv"
-          className="px-6 py-3 rounded-2xl border border-gray-500 hover:bg-gray-800 gap-2 text-gray-200 font-medium transition flex items-center justify-center w-full sm:w-auto"
+          className="px-[clamp(1rem,3vw,1rem)] py-[clamp(0.6rem,2vw,1rem)] rounded-2xl border border-gray-500 hover:bg-gray-800 gap-2 text-gray-200 font-medium transition flex items-center justify-center w-full sm:w-auto text-[clamp(0.9rem,2vw,1rem)]"
         >
-          Download Cv <ArrowDown size={18} />
+          Download CV <Download size={18} />
         </a>
       </Motion.div>
     </section>

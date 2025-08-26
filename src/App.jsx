@@ -52,22 +52,24 @@ export default function App() {
           <DarkBackground />
         </div>
       </div>
-      <div className="container mx-auto px-8">
-        <CardNav
-          logo={Navcon}
-          logoAlt="Company Logo"
-          items={items}
-          baseColor="rgba(255, 255, 255, 0.1)"
-          menuColor="#fff"
-          buttonBgColor="#D93F87"
-          buttonTextColor="#fff"
-          ease="power3.out"
-          className="backdrop-blur-lg border border-white/20 rounded-2xl shadow-lg"
-        />
+      <div className="container mx-auto ">
+        <div className="fixed top-0 left-0 w-full z-50">
+          <CardNav
+            logo={Navcon}
+            logoAlt="Company Logo"
+            items={items}
+            baseColor="rgba(255, 255, 255, 0.1)"
+            menuColor="#fff"
+            buttonBgColor="#D93F87"
+            buttonTextColor="#fff"
+            ease="power3.out"
+            className="backdrop-blur-lg border border-white/20 rounded-2xl shadow-lg"
+          />
+        </div>
         <Hero />
         <About />
         <Interests />
-        <Achievements/>
+        <Achievements />
       </div>
     </div>
   );
