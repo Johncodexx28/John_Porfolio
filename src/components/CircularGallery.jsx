@@ -8,6 +8,11 @@ import {
   Transform,
 } from "ogl";
 import { useEffect, useRef } from "react";
+import achievement1 from "../assets/images/achievement1.jpg";
+import achievement2 from "../assets/images/achievement2.jpg";
+import achievement3 from "../assets/images/achievement3.jpg";
+import achievement4 from "../assets/images/achievement4.jpg";
+
 
 function debounce(func, wait) {
   let timeout;
@@ -369,20 +374,20 @@ class App {
   createMedias(items, bend = 1, textColor, borderRadius, font) {
     const defaultItems = [
       {
-        image: `https://picsum.photos/seed/1/800/600?grayscale`,
-        text: "Bridge",
+        image: achievement1,
+        text: "Barangay Consultation",
       },
       {
-        image: `https://picsum.photos/seed/2/800/600?grayscale`,
-        text: "Desk Setup",
+        image: achievement2,
+        text: "Dean’s Lister (1st Year)",
       },
       {
-        image: `https://picsum.photos/seed/3/800/600?grayscale`,
-        text: "Waterfall",
+        image: achievement3,
+        text: "Mini-Capstone (2nd Year)",
       },
       {
-        image: `https://picsum.photos/seed/4/800/600?grayscale`,
-        text: "Strawberries",
+        image: achievement4,
+        text: "Environmental Outreach",
       },
       {
         image: `https://picsum.photos/seed/5/800/600?grayscale`,
@@ -399,22 +404,6 @@ class App {
       {
         image: `https://picsum.photos/seed/8/800/600?grayscale`,
         text: "Blurry Lights",
-      },
-      {
-        image: `https://picsum.photos/seed/9/800/600?grayscale`,
-        text: "New York",
-      },
-      {
-        image: `https://picsum.photos/seed/10/800/600?grayscale`,
-        text: "Good Boy",
-      },
-      {
-        image: `https://picsum.photos/seed/21/800/600?grayscale`,
-        text: "Coastline",
-      },
-      {
-        image: `https://picsum.photos/seed/12/800/600?grayscale`,
-        text: "Palm Trees",
       },
     ];
     const galleryItems = items && items.length ? items : defaultItems;
