@@ -1,7 +1,7 @@
 import { motion as Motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { ArrowRight, MapPin, Play } from "lucide-react";
-import profilePhoto from "../assets/images/my_photo.png";
+import profilePhoto from "../assets/images/my_photo.webp";
 import TextType from "../components/TextType.jsx";
 
 const descriptionPhrases = [
@@ -111,6 +111,10 @@ const Hero = () => {
               src={profilePhoto}
               alt="John Lloyd Cabanig holding a laptop"
               className="portfolio-hero__portrait"
+              width="900"
+              height="1077"
+              decoding="async"
+              fetchPriority="high"
             />
           </div>
           <p className="portfolio-hero__side-note">

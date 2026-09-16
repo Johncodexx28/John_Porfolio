@@ -1,9 +1,9 @@
 import { motion as Motion, useReducedMotion } from "framer-motion";
 import { ArrowUpRight, Github } from "lucide-react";
-import bookLifeImage from "../assets/images/booklife.png";
-import uiTubeImage from "../assets/images/uitube.png";
-import breedsmart from "../assets/images/breedsmart.png";
-import ilooparking from "../assets/images/pfinder.png";
+import bookLifeImage from "../assets/images/booklife.webp";
+import uiTubeImage from "../assets/images/uitube.webp";
+import breedsmart from "../assets/images/breedsmart.webp";
+import ilooparking from "../assets/images/pfinder.webp";
 
 const projects = [
   {
@@ -133,6 +133,7 @@ const Projects = () => {
                   alt={`${project.title} project preview`}
                   className="portfolio-projects__image"
                   loading="lazy"
+                  decoding="async"
                   variants={{
                     hover: prefersReducedMotion ? {} : { scale: 1.055 },
                   }}

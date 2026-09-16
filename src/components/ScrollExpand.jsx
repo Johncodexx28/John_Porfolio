@@ -39,6 +39,18 @@ export default function ScrollExpand({
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(true);
   const [isHovered, setIsHovered] = useState(false);
+  const [isInView, setIsInView] = useState(false);
+
+  useEffect(() => {
+    const root = rootRef.current;
+    if (!root) return undefined;
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsInView(entry.isIntersecting),
+      { rootMargin: "160px 0px" },
+    );
+    observer.observe(root);
+    return () => observer.disconnect();
+  }, []);
 
   const normalizedSlides = useMemo(() => {
     if (Array.isArray(slides) && slides.length > 0) {
@@ -69,12 +81,12 @@ export default function ScrollExpand({
 
   // Autoplay handler
   useEffect(() => {
-    if (!isCarousel || !isPlaying || isHovered) return undefined;
+    if (!isCarousel || !isPlaying || isHovered || !isInView) return undefined;
     const timer = setInterval(() => {
       goToNext();
     }, autoplayInterval);
     return () => clearInterval(timer);
-  }, [autoplayInterval, goToNext, isCarousel, isHovered, isPlaying]);
+  }, [autoplayInterval, goToNext, isCarousel, isHovered, isInView, isPlaying]);
 
   // Touch swipe support
   const touchStartX = useRef(null);
@@ -234,7 +246,8 @@ export default function ScrollExpand({
                         className="scroll-expand__media"
                         src={slide.src}
                         alt={slide.alt || ""}
-                        loading={index === 0 ? "eager" : "lazy"}
+                        loading="lazy"
+                        decoding="async"
                       />
                     </div>
                   ))}
@@ -244,6 +257,8 @@ export default function ScrollExpand({
                   className="scroll-expand__media"
                   src={activeSlide?.src}
                   alt={activeSlide?.alt || ""}
+                  loading="lazy"
+                  decoding="async"
                 />
               )}
             </div>

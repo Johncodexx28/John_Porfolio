@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
+import { createAnimationFrameLoop } from "./animationFrameLoop";
 import "./DriftWall.css";
 
 const prefersReducedMotion = () =>
@@ -36,7 +37,6 @@ export default function DriftWall({
   const containerRef = useRef(null);
   const planeRef = useRef(null);
   const trackRefs = useRef([]);
-  const rafRef = useRef(null);
   const offsetsRef = useRef([]);
   const velocitiesRef = useRef([]);
   const hoveredColumnRef = useRef(-1);
@@ -101,6 +101,10 @@ export default function DriftWall({
   );
 
   useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return undefined;
+    let isVisible = false;
+
     const animate = (timestamp) => {
       if (lastTimestampRef.current === null) lastTimestampRef.current = timestamp;
       const delta = Math.min(0.05, Math.max(0, timestamp - lastTimestampRef.current) / 1000);
@@ -124,11 +128,31 @@ export default function DriftWall({
         }
         track.style.transform = `translate3d(0, ${-(offsetsRef.current[index] || 0)}px, 0)`;
       }
-      rafRef.current = requestAnimationFrame(animate);
+      return !reduced && isVisible && !document.hidden;
     };
-    rafRef.current = requestAnimationFrame(animate);
+
+    const loop = createAnimationFrameLoop({ render: animate });
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        isVisible = entry.isIntersecting;
+        lastTimestampRef.current = null;
+        if (isVisible && !document.hidden) loop.wake();
+        else loop.pause();
+      },
+      { rootMargin: "120px 0px" },
+    );
+    const handleVisibilityChange = () => {
+      lastTimestampRef.current = null;
+      if (isVisible && !document.hidden) loop.wake();
+      else loop.pause();
+    };
+
+    observer.observe(container);
+    document.addEventListener("visibilitychange", handleVisibilityChange);
     return () => {
-      cancelAnimationFrame(rafRef.current);
+      loop.pause();
+      observer.disconnect();
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
       lastTimestampRef.current = null;
     };
   }, [applyPlaneTransform, columnMeta, parallax, pauseOnHover, reduced, velocities]);

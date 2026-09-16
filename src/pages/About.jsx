@@ -1,13 +1,13 @@
 import { motion as Motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import DriftWall from "../components/DriftWall";
-import bookLifeImage from "../assets/images/booklife.png";
-import uiTubeImage from "../assets/images/uitube.png";
-import breedsmartImage from "../assets/images/breedsmart.png";
-import driftwall1 from "../assets/images/driftwall1.png";
-import driftwall2 from "../assets/images/driftwall2.png";
-import driftwall3 from "../assets/images/driftwall3.png";
-import pfinderImage from "../assets/images/pfinder.png";
+import bookLifeImage from "../assets/images/booklife.webp";
+import uiTubeImage from "../assets/images/uitube.webp";
+import breedsmartImage from "../assets/images/breedsmart.webp";
+import driftwall1 from "../assets/images/driftwall1.webp";
+import driftwall2 from "../assets/images/driftwall2.webp";
+import driftwall3 from "../assets/images/driftwall3.webp";
+import pfinderImage from "../assets/images/pfinder.webp";
 
 const stats = [
   { value: "20+", label: "Projects completed" },
@@ -52,13 +52,6 @@ const About = () => (
     className="portfolio-about"
     aria-labelledby="about-title"
     data-nav-theme="dark"
-    data-glow-color="#2563EB"
-    data-glow-secondary-color="#60A5FA"
-    data-glow-intensity="0.9"
-    data-glow-spread="1.7"
-    data-glow-hotspot="0.38"
-    data-glow-brightness="1.35"
-    data-glow-opacity="0.68"
   >
     <div className="portfolio-about__container">
       <Motion.div

@@ -164,6 +164,22 @@
   transform: translateY(-2px);
 }
 
+@media (max-width: 767px) {
+  .portfolio-footer__top-btn {
+    align-self: flex-start;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    gap: 0;
+    padding: 0;
+    border-radius: 50%;
+  }
+
+  .portfolio-footer__top-btn span {
+    display: none;
+  }
+}
+
 /* Bottom Divider & Colophon */
 .portfolio-footer__bottom {
   display: flex;

@@ -15,16 +15,16 @@ import {
 } from "lucide-react";
 import LogoLoop from "../components/LogoLoop.jsx";
 import ScrollExpand from "../components/ScrollExpand.jsx";
-import uipcGroup from "../assets/images/uipc1.jpeg";
-import uipcPhoto1 from "../assets/images/uipc1.jpg";
+import uipcGroup from "../assets/images/uipc1-group.webp";
+import uipcPhoto1 from "../assets/images/uipc1-photo.webp";
 import uipcPhoto4 from "../assets/images/achievement4.jpg";
-import uipcEvent from "../assets/images/uipc6.jpeg";
-import championImage1 from "../assets/images/webdesign_champion1.jpg";
-import championImage2 from "../assets/images/webdesign_champion2.jpg";
-import championImage3 from "../assets/images/webdesign_champion3.jpg";
-import award1 from "../assets/images/award1.png";
-import award2 from "../assets/images/award2.png";
-import award4 from "../assets/images/award4.jpg";
+import uipcEvent from "../assets/images/uipc6.webp";
+import championImage1 from "../assets/images/webdesign_champion1.webp";
+import championImage2 from "../assets/images/webdesign_champion2.webp";
+import championImage3 from "../assets/images/webdesign_champion3.webp";
+import award1 from "../assets/images/award1.webp";
+import award2 from "../assets/images/award2.webp";
+import award4 from "../assets/images/award4.webp";
 import "./Experience.css";
 import "./ExperienceGallery.css";
 
@@ -255,7 +255,7 @@ export default function Experience() {
             scrollHint="Scroll to expand the story"
           />
           <div className="experience-story__community-copy">
-            <img src={uipcEvent} alt="UIPC event team" />
+            <img src={uipcEvent} alt="UIPC event team" loading="lazy" decoding="async" />
             <div>
               <p>
                 UIPC has given me room to learn with others, take part in campus
@@ -283,6 +283,8 @@ export default function Experience() {
               src={activeChampionPhoto.src}
               alt={activeChampionPhoto.alt}
               className="experience-story__recognition-img"
+              loading="lazy"
+              decoding="async"
               onClick={nextChampionPhoto}
             />
             <div className="experience-story__recognition-controls">
@@ -348,7 +350,7 @@ export default function Experience() {
             },
           ].map((item) => (
             <article key={item.title}>
-              <img src={item.image} alt="" />
+              <img src={item.image} alt="" loading="lazy" decoding="async" />
               <div>
                 <span>{item.year}</span>
                 <h3>{item.title}</h3>

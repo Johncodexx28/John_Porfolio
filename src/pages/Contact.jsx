@@ -71,7 +71,6 @@ export default function Contact() {
 
   return (
     <section
-      id="contact"
       className="contact-section"
       data-nav-theme="dark"
       aria-labelledby="contact-title"
@@ -82,7 +81,7 @@ export default function Contact() {
           <h2 id="contact-title" className="contact-section__title">
             Let&apos;s build something remarkable.
           </h2>
-          <p className="contact-section__subtitle">
+          <p className="contact-section__subtitle" id="contact">
             Have a project in mind, a question, or a creative proposal? I&apos;m
             always open to discussing new opportunities and ambitious ideas.
           </p>
@@ -91,7 +90,10 @@ export default function Contact() {
         <div className="contact-section__grid">
           {/* Left Column: Direct Info */}
           <div className="contact-info-panel">
-            <div className="contact-status-card" aria-label="Current work status">
+            <div
+              className="contact-status-card"
+              aria-label="Current work status"
+            >
               <span className="contact-status-pulse" aria-hidden="true" />
               <span className="contact-status-text">
                 Available for projects &bull; GMT+8
@@ -192,7 +194,9 @@ export default function Contact() {
                   <Briefcase size={16} aria-hidden="true" />
                 </div>
                 <div className="contact-detail-content">
-                  <span className="contact-detail-label">Professional Profile</span>
+                  <span className="contact-detail-label">
+                    Professional Profile
+                  </span>
                   <span className="contact-detail-value flex items-center gap-1">
                     johnlloydcabanig28.jobs180.com
                     <ArrowUpRight size={13} aria-hidden="true" />
@@ -211,8 +215,8 @@ export default function Contact() {
                 </div>
                 <h3 className="contact-success-title">Message received!</h3>
                 <p className="contact-success-text">
-                  Thank you for reaching out, {formData.name || "there"}. I&apos;ve
-                  received your note and will get back to you shortly.
+                  Thank you for reaching out, {formData.name || "there"}.
+                  I&apos;ve received your note and will get back to you shortly.
                 </p>
                 <button
                   type="button"
@@ -230,7 +234,10 @@ export default function Contact() {
               >
                 <div className="contact-form__row">
                   <div className="contact-form__field">
-                    <label htmlFor="contact-name" className="contact-form__label">
+                    <label
+                      htmlFor="contact-name"
+                      className="contact-form__label"
+                    >
                       Your Name
                     </label>
                     <input

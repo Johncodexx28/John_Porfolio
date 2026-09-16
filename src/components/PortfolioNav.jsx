@@ -16,31 +16,48 @@ const PortfolioNav = () => {
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
+    let animationFrame = 0;
     const sections = navigationItems
       .map(({ href }) => document.querySelector(href))
-      .filter(Boolean);
+      .filter(Boolean)
+      .map((anchor) => ({
+        anchor,
+        boundary: anchor.closest("[data-nav-theme]") || anchor,
+      }));
     const updateActiveSection = () => {
       setIsScrolled(window.scrollY > 20);
 
       const activeMarker = window.innerHeight * 0.35;
-      const currentSection = sections.find((section) => {
-        const bounds = section.getBoundingClientRect();
+      const currentSection = sections.find(({ boundary }) => {
+        const bounds = boundary.getBoundingClientRect();
         return bounds.top <= activeMarker && bounds.bottom > activeMarker;
       });
       if (currentSection) {
-        setActiveSection(currentSection.id);
-        setNavTheme(currentSection.dataset.navTheme || "light");
+        setActiveSection(currentSection.anchor.id);
+        setNavTheme(
+          currentSection.anchor.dataset.navTheme ||
+            currentSection.boundary.dataset.navTheme ||
+            "light",
+        );
       } else {
         setNavTheme("light");
       }
     };
+    const scheduleUpdate = () => {
+      if (animationFrame) return;
+      animationFrame = window.requestAnimationFrame(() => {
+        animationFrame = 0;
+        updateActiveSection();
+      });
+    };
 
     updateActiveSection();
-    window.addEventListener("scroll", updateActiveSection, { passive: true });
-    window.addEventListener("resize", updateActiveSection);
+    window.addEventListener("scroll", scheduleUpdate, { passive: true });
+    window.addEventListener("resize", scheduleUpdate);
     return () => {
-      window.removeEventListener("scroll", updateActiveSection);
-      window.removeEventListener("resize", updateActiveSection);
+      window.cancelAnimationFrame(animationFrame);
+      window.removeEventListener("scroll", scheduleUpdate);
+      window.removeEventListener("resize", scheduleUpdate);
     };
   }, []);
 

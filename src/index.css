@@ -326,7 +326,8 @@ html {
   position: relative;
   scroll-margin-top: 0;
   min-height: 100vh;
-  padding: clamp(6rem, 12vh, 10rem) var(--page-padding);
+  padding: clamp(6rem, 12vh, 10rem) var(--page-padding)
+    clamp(3rem, 5vh, 4.5rem);
   color: #f7f7f3;
   background: #090909;
 }
@@ -491,7 +492,8 @@ html {
   position: relative;
   background-color: var(--bg);
   color: var(--text);
-  padding: clamp(5rem, 10vh, 8.5rem) var(--page-padding);
+  padding: clamp(3.5rem, 6vh, 5rem) var(--page-padding)
+    clamp(5rem, 10vh, 8.5rem);
   border-top: 1px solid rgba(17, 17, 17, 0.06);
 }
 
@@ -919,7 +921,7 @@ html {
 
 @media (max-width: 640px) {
   .portfolio-projects {
-    padding: 4.5rem var(--page-padding);
+    padding: 3.5rem var(--page-padding) 4.5rem;
   }
   .portfolio-projects__filters {
     overflow-x: auto;
@@ -933,6 +935,16 @@ html {
   .portfolio-projects__lab-grid {
     grid-template-columns: 1fr;
   }
+}
+
+/* Skip below-the-fold layout and paint work until each section nears view. */
+.portfolio-about,
+.portfolio-projects,
+.experience-story,
+.contact-section,
+.portfolio-footer {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 900px;
 }
 
 .portfolio-experience {
@@ -1598,7 +1610,7 @@ html {
     bottom: 0.85rem;
   }
   .portfolio-about {
-    padding: clamp(3.5rem, 6vh, 5rem) var(--page-padding);
+    padding: clamp(3.5rem, 6vh, 5rem) var(--page-padding) 3rem;
   }
   .portfolio-about__container {
     display: block;
@@ -2115,5 +2127,62 @@ html {
     align-items: flex-start;
     flex-direction: column;
     gap: 0.85rem;
+  }
+
+  .portfolio-hero__actions {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.65rem;
+  }
+
+  .portfolio-hero__primary-action,
+  .portfolio-hero__secondary-action {
+    width: auto;
+    min-width: 0;
+    padding-inline: 0.75rem;
+    font-size: 0.62rem;
+    white-space: nowrap;
+  }
+
+  .portfolio-hero__meta {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: center;
+    gap: 0.65rem;
+    font-size: 0.66rem;
+  }
+
+  .portfolio-hero__meta span {
+    min-width: 0;
+  }
+
+  .portfolio-hero__meta span + span {
+    padding-left: 0.65rem;
+    border-left: 1px solid rgba(17, 17, 17, 0.2);
+  }
+
+  .portfolio-projects__showcase {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1rem;
+    overflow: visible;
+    padding-bottom: 0;
+    scroll-snap-type: none;
+  }
+
+  .portfolio-projects__showcase > * {
+    width: 100%;
+    min-width: 0;
+    flex: none;
+    scroll-snap-align: none;
+  }
+
+  .portfolio-projects__card-media {
+    min-height: clamp(11rem, 56vw, 14rem);
+    aspect-ratio: 4 / 3;
+  }
+
+  .portfolio-projects__image {
+    object-position: top center;
   }
 }

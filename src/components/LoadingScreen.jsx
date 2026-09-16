@@ -61,48 +61,13 @@ const LoadingScreen = ({ onComplete }) => {
         // Dwell on "John Lloyd Cabanig" so it is clearly readable
         await new Promise((resolve) => setTimeout(resolve, 1400));
 
-        // 4. Transition: Collapse "ohn", "loyd", "abanig" and spaces, leaving only "JLC"
+        // 4. Keep the full name intact as the panels reveal the portfolio.
         await Promise.all([
-          animate(
-            ".loading-screen__rest",
-            {
-              opacity: 0,
-              maxWidth: "0px",
-              scaleX: 0,
-              filter: "blur(3px)",
-            },
-            { duration: 0.85, ease: [0.76, 0, 0.24, 1] }
-          ),
-          animate(
-            ".loading-screen__space",
-            {
-              width: "0px",
-              opacity: 0,
-            },
-            { duration: 0.85, ease: [0.76, 0, 0.24, 1] }
-          ),
           animate(
             ".loading-screen__name-morph",
-            {
-              scale: [1, 1.45],
-              letterSpacing: "-0.06em",
-            },
-            { delay: 0.25, duration: 0.85, ease: [0.16, 1, 0.3, 1] }
+            { opacity: 0, scale: 1.04, filter: "blur(4px)" },
+            { duration: 0.45, ease: "easeIn" }
           ),
-        ]);
-
-        // Hold the iconic JLC monogram
-        await new Promise((resolve) => setTimeout(resolve, 950));
-
-        // Monogram fades out as curtains split
-        animate(
-          ".loading-screen__name-morph",
-          { opacity: 0, scale: 1.55 },
-          { duration: 0.45, ease: "easeIn" }
-        );
-
-        // 5. Panels split open to reveal portfolio
-        await Promise.all([
           animate(
             ".loading-screen__panel--top",
             { y: "-100%" },
@@ -149,22 +114,8 @@ const LoadingScreen = ({ onComplete }) => {
         </div>
       ) : null}
 
-      {/* Morphing typography: John Lloyd Cabanig -> JLC */}
       <div className="loading-screen__name-morph" aria-hidden="true">
-        <span className="loading-screen__word">
-          <span className="loading-screen__initial">J</span>
-          <span className="loading-screen__rest">ohn</span>
-        </span>
-        <span className="loading-screen__space">&nbsp;</span>
-        <span className="loading-screen__word">
-          <span className="loading-screen__initial">L</span>
-          <span className="loading-screen__rest">loyd</span>
-        </span>
-        <span className="loading-screen__space">&nbsp;</span>
-        <span className="loading-screen__word">
-          <span className="loading-screen__initial">C</span>
-          <span className="loading-screen__rest">abanig</span>
-        </span>
+        John Lloyd Cabanig
       </div>
     </div>
   );

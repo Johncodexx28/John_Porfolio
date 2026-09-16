@@ -69,14 +69,16 @@
 .loading-screen__name-morph {
   position: absolute;
   z-index: 3;
-  display: inline-flex;
-  align-items: baseline;
-  justify-content: center;
+  display: block;
+  box-sizing: border-box;
+  max-width: calc(100vw - (2 * var(--page-padding)));
+  padding: 0.06em 0.04em 0.16em;
+  overflow: visible;
   color: #111111;
   font-family: var(--serif);
-  font-size: clamp(3rem, 8.5vw, 8rem);
+  font-size: clamp(2rem, 8.5vw, 8rem);
   font-weight: 400;
-  line-height: 1;
+  line-height: 1.12;
   letter-spacing: -0.02em;
   text-align: center;
   white-space: nowrap;
@@ -84,39 +86,6 @@
   opacity: 0;
   transform-origin: center center;
   will-change: transform, opacity, filter, letter-spacing;
-}
-
-.loading-screen__word {
-  display: inline-flex;
-  align-items: baseline;
-  overflow: visible;
-}
-
-.loading-screen__initial {
-  display: inline-block;
-  color: #111111;
-  font-family: var(--serif);
-  font-weight: 400;
-  line-height: 1;
-}
-
-.loading-screen__rest {
-  display: inline-block;
-  max-width: 12ch;
-  overflow: hidden;
-  white-space: nowrap;
-  vertical-align: baseline;
-  transform-origin: left center;
-  will-change: max-width, opacity, transform, filter;
-}
-
-.loading-screen__space {
-  display: inline-block;
-  overflow: hidden;
-  width: 0.32em;
-  white-space: nowrap;
-  vertical-align: baseline;
-  will-change: width, opacity;
 }
 
 @keyframes loading-screen-cursor {
