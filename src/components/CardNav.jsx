@@ -1,4 +1,4 @@
-import { useLayoutEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 
 import { GoArrowUpRight } from "react-icons/go";
@@ -20,6 +20,22 @@ const Navbar = ({
   const navRef = useRef(null);
   const cardsRef = useRef([]);
   const tlRef = useRef(null);
+  const [activeSection, setActiveSection] = useState("hero");
+
+  useEffect(() => {
+    const sections = Array.from(document.querySelectorAll("main section[id]"));
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const current = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((first, second) => second.intersectionRatio - first.intersectionRatio)[0];
+        if (current) setActiveSection(current.target.id);
+      },
+      { rootMargin: "-35% 0px -55% 0px", threshold: [0.05, 0.2] }
+    );
+    sections.forEach((section) => observer.observe(section));
+    return () => observer.disconnect();
+  }, []);
 
   const calculateHeight = () => {
     const navEl = navRef.current;
@@ -133,6 +149,17 @@ const Navbar = ({
     }
   };
 
+  const handleMenuKeyDown = (event) => {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      toggleMenu();
+    }
+  };
+
+  const handleNavigation = () => {
+    if (isExpanded) toggleMenu();
+  };
+
   const setCardRef = (i) => (el) => {
     if (el) cardsRef.current[i] = el;
   };
@@ -145,29 +172,32 @@ const Navbar = ({
         style={{ backgroundColor: baseColor }}
       >
         <div className="card-nav-top">
-          <div
+          <button
+            type="button"
             className={`hamburger-menu ${isHamburgerOpen ? "open" : ""}`}
             onClick={toggleMenu}
+            onKeyDown={handleMenuKeyDown}
             role="button"
             aria-label={isExpanded ? "Close menu" : "Open menu"}
+            aria-expanded={isExpanded}
             tabIndex={0}
             style={{ color: menuColor || "#000" }}
           >
             <div className="hamburger-line" />
             <div className="hamburger-line" />
-          </div>
+          </button>
 
           <div className="logo-container">
             <img src={logo} alt={logoAlt} className="logo" />
           </div>
 
-          <button
-            type="button"
+          <a
+            href="#contact"
             className="card-nav-cta-button"
             style={{ backgroundColor: buttonBgColor, color: buttonTextColor }}
           >
             Contact Me
-          </button>
+          </a>
         </div>
 
         <div className="card-nav-content" aria-hidden={!isExpanded}>
@@ -186,6 +216,8 @@ const Navbar = ({
                     className="nav-card-link"
                     href={lnk.href}
                     aria-label={lnk.ariaLabel}
+                    aria-current={lnk.href === `#${activeSection}` ? "page" : undefined}
+                    onClick={handleNavigation}
                   >
                     <GoArrowUpRight
                       className="nav-card-link-icon"

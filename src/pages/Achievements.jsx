@@ -1,6 +1,6 @@
 import { motion as Motion } from "framer-motion";
-import { useState } from "react";
-import CircularGallery from "./CircularGallery";
+import { useEffect, useRef, useState } from "react";
+import CircularGallery from "../components/CircularGallery.jsx";
 
 // Achievement images
 import award1 from "../assets/images/award1.png";
@@ -10,6 +10,17 @@ import award4 from "../assets/images/award4.jpg";
 
 const Achievements = () => {
   const [selectedImage, setSelectedImage] = useState(null);
+  const closeButtonRef = useRef(null);
+
+  useEffect(() => {
+    if (!selectedImage) return undefined;
+    closeButtonRef.current?.focus();
+    const handleKeyDown = (event) => {
+      if (event.key === "Escape") setSelectedImage(null);
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [selectedImage]);
 
   const achievements = [
     {
@@ -63,6 +74,8 @@ const Achievements = () => {
 
   return (
     <Motion.section
+      id="achievements"
+      aria-labelledby="achievements-title"
       className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20"
       initial="hidden"
       whileInView="visible"
@@ -71,16 +84,15 @@ const Achievements = () => {
     >
       {/* Header */}
       <Motion.div
-        className="text-center mb-8 sm:mb-12 lg:mb-16"
+        className="text-center mb-8 sm:mb-12 "
         variants={itemVariants}
       >
-        <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-2">
+        <h2 id="achievements-title" className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-2">
           Achievements
         </h2>
         <p className="text-gray-600 dark:text-gray-400 text-sm sm:text-base max-w-md mx-auto">
           Recognition and milestones that mark my journey in technology
         </p>
-        <div className="mt-4 sm:mt-6 w-16 sm:w-20 h-1 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full mx-auto" />
       </Motion.div>
 
       {/* Main Achievement Display */}
@@ -101,7 +113,6 @@ const Achievements = () => {
             className="sm:h-[400px]"
           >
             <CircularGallery
-              images={achievements.map((item) => item.img)}
               bend={2.8}
               textColor="#ffffff"
               borderRadius={0.08}
@@ -219,6 +230,9 @@ const Achievements = () => {
         <Motion.div
           className="fixed inset-0 bg-black/90 backdrop-blur-sm flex items-center justify-center z-50 p-4"
           onClick={() => setSelectedImage(null)}
+          role="dialog"
+          aria-modal="true"
+          aria-label={`${selectedImage.title} certificate details`}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -232,7 +246,9 @@ const Achievements = () => {
           >
             {/* Close Button */}
             <button
+              ref={closeButtonRef}
               onClick={() => setSelectedImage(null)}
+              aria-label="Close certificate details"
               className="absolute top-4 right-4 z-10 w-10 h-10 bg-black/80 hover:bg-black text-white rounded-full flex items-center justify-center transition-colors backdrop-blur-sm"
             >
               <svg

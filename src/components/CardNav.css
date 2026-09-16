@@ -44,6 +44,9 @@
   justify-content: center;
   cursor: pointer;
   gap: 6px;
+  border: 0;
+  background: transparent;
+  padding: 0;
 }
 
 .hamburger-menu:hover .hamburger-line {
@@ -89,6 +92,9 @@
   font-weight: 700;
   cursor: pointer;
   transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
 }
 
 .card-nav-cta-button:hover {
@@ -159,6 +165,18 @@
   opacity: 1;
   background-color: rgba(255, 255, 255, 0.2);
   transform: translateY(-2px);
+}
+
+.nav-card-link[aria-current="page"] {
+  background-color: rgba(217, 63, 135, 0.3);
+  color: #fff;
+}
+
+.hamburger-menu:focus-visible,
+.card-nav-cta-button:focus-visible,
+.nav-card-link:focus-visible {
+  outline: 2px solid #d93f87;
+  outline-offset: 3px;
 }
 
 @media (max-width: 768px) {

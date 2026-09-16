@@ -1,0 +1,43 @@
+.experience-story__photo-overlay {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.experience-story__photo-overlay p {
+  margin: 0;
+}
+
+.experience-story__next-photo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.6rem 0.8rem;
+  border: 1px solid rgba(247, 247, 243, 0.58);
+  border-radius: 999px;
+  background: rgba(8, 8, 8, 0.52);
+  color: #fff;
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.62rem;
+  font-weight: 650;
+  letter-spacing: 0.1em;
+  line-height: 1;
+  text-transform: uppercase;
+  transition: background-color 180ms ease, transform 180ms ease;
+}
+
+.experience-story__next-photo:hover,
+.experience-story__next-photo:focus-visible {
+  background: rgba(247, 247, 243, 0.18);
+  outline: none;
+  transform: translateX(0.18rem);
+}
+
+@media (max-width: 640px) {
+  .experience-story__next-photo {
+    padding: 0.55rem 0.7rem;
+    font-size: 0.56rem;
+  }
+}

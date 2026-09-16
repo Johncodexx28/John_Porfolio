@@ -1,76 +1,49 @@
-import DarkBackground from "./components/DarkBackground.jsx";
-import CardNav from "./components/CardNav.jsx";
-import Hero from "./components/Hero.jsx";
-import About from "./pages/About.jsx";
-import Projects from "./pages/Projects.jsx";
-import Contact from "./pages/Contact.jsx";
-import Navcon from "./assets/navcon.png";
-import Interests from "./components/Interests.jsx";
-import Achievements from "./components/Achievements.jsx";
+import { useCallback, useState } from "react";
+import PortfolioNav from "./components/PortfolioNav.jsx";
+import GlowCursor from "./components/GlowCursor.jsx";
+import LoadingScreen from "./components/LoadingScreen.jsx";
+import { Hero, About, Experience, Projects, Contact } from "./pages";
+import Footer from "./components/Footer.jsx";
 
 export default function App() {
-  const items = [
-    {
-      label: "About",
-      bgColor: "#0D0716",
-      textColor: "#fff",
-      links: [
-        { label: "Who I Am", ariaLabel: "About Me" },
-        { label: "Interest", ariaLabel: "My Interests and Activities" },
-        { label: "Achievements", ariaLabel: "Achievements" },
-      ],
-    },
-    {
-      label: "Projects",
-      bgColor: "#170D27",
-      textColor: "#fff",
-      links: [
-        { label: "Web Development", ariaLabel: "Web Development Projects" },
-        { label: "Web Design", ariaLabel: "UI and Web Design Projects" },
-        {
-          label: "Coding Journey",
-          ariaLabel: "Coding Documentations and Journey",
-        },
-      ],
-    },
-    {
-      label: "Skills",
-      bgColor: "#1E1030",
-      textColor: "#fff",
-      links: [
-        { label: "Languages", ariaLabel: "Programming Languages" },
-        { label: "Frameworks", ariaLabel: "Libraries and Frameworks" },
-        { label: "Tools", ariaLabel: "Developer Tools" },
-      ],
-    },
-  ];
+  const [isIntroComplete, setIsIntroComplete] = useState(false);
+  const handleIntroComplete = useCallback(() => setIsIntroComplete(true), []);
+
+  if (!isIntroComplete) {
+    return <LoadingScreen onComplete={handleIntroComplete} />;
+  }
 
   return (
-    <div className="overflow-x-hidden text-stone-200 antialiased">
-      <div className="fixed inset-0 -z-10">
-        <div className="relative h-full w-full ">
-          <DarkBackground />
-        </div>
+    <GlowCursor
+      color="#000000"
+      secondaryColor="#343434"
+      trailLength={40}
+      trailWidth={7}
+      trailTaper={0.84}
+      followSpeed={0.16}
+      glowIntensity={0.28}
+      glowSpread={1.1}
+      hotspot={0.16}
+      brightness={0.72}
+      opacity={0.34}
+      pulseSpeed={0.8}
+      noiseStrength={0.035}
+      idleFade
+      idleTimeout={700}
+      fadeDuration={900}
+      blendMode="screen"
+    >
+      <div className="w-full max-w-full overflow-x-hidden text-stone-200 antialiased">
+        <PortfolioNav />
+        <main>
+          <Hero />
+          <About />
+          <Projects />
+          <Experience />
+          <Contact />
+        </main>
+        <Footer />
       </div>
-      <div className="container mx-auto ">
-        <div className="fixed top-0 left-0 w-full z-50">
-          <CardNav
-            logo={Navcon}
-            logoAlt="Company Logo"
-            items={items}
-            baseColor="rgba(255, 255, 255, 0.1)"
-            menuColor="#fff"
-            buttonBgColor="#D93F87"
-            buttonTextColor="#fff"
-            ease="power3.out"
-            className="backdrop-blur-lg border border-white/20 rounded-2xl shadow-lg"
-          />
-        </div>
-        <Hero />
-        <About />
-        <Interests />
-        <Achievements />
-      </div>
-    </div>
+    </GlowCursor>
   );
 }

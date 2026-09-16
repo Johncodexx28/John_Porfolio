@@ -1,5 +1,5 @@
 import { motion as Motion } from "framer-motion";
-import SpotlightCard from "./SpotlightCard";
+import SpotlightCard from "../components/SpotlightCard.jsx";
 
 import webDesignImg from "../assets/images/web-design.png";
 import webDevImg from "../assets/images/web-development.png";
@@ -74,6 +74,8 @@ const Interests = () => {
 
   return (
     <Motion.section
+      id="interests"
+      aria-labelledby="interests-title"
       className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12"
       initial="hidden"
       whileInView="visible"
@@ -82,7 +84,7 @@ const Interests = () => {
     >
       {/* Header */}
       <Motion.div className="text-center mb-8 sm:mb-10" variants={cardVariants}>
-        <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-2">
+        <h2 id="interests-title" className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-2">
           My Interests
         </h2>
         <p className="text-gray-600 dark:text-gray-400 text-sm sm:text-base max-w-md mx-auto">

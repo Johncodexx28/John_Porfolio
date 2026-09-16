@@ -1,160 +1,181 @@
 import { motion as Motion } from "framer-motion";
-import { useState, useEffect } from "react";
-import Lanyard from "../components/Lanyard.jsx";
-import Socials from "../components/Socials.jsx";
+import { ArrowUpRight } from "lucide-react";
+import DriftWall from "../components/DriftWall";
+import bookLifeImage from "../assets/images/booklife.png";
+import uiTubeImage from "../assets/images/uitube.png";
+import breedsmartImage from "../assets/images/breedsmart.png";
+import driftwall1 from "../assets/images/driftwall1.png";
+import driftwall2 from "../assets/images/driftwall2.png";
+import driftwall3 from "../assets/images/driftwall3.png";
+import pfinderImage from "../assets/images/pfinder.png";
 
-const About = () => {
-  const [screenSize, setScreenSize] = useState("desktop");
+const stats = [
+  { value: "20+", label: "Projects completed" },
+  { value: "5+", label: "Core technologies" },
+  { value: "100+", label: "Hours spent building" },
+];
 
-  useEffect(() => {
-    const handleResize = () => {
-      const width = window.innerWidth;
-      if (width < 640) {
-        setScreenSize("mobile");
-      } else if (width < 1024) {
-        setScreenSize("tablet");
-      } else {
-        setScreenSize("desktop");
-      }
-    };
+const disciplines = [
+  {
+    number: "01",
+    title: "Product-minded development",
+    description:
+      "I begin with the person using the product, then shape the interface and code around what they need to accomplish.",
+  },
+  {
+    number: "02",
+    title: "Thoughtful interaction",
+    description:
+      "Motion, feedback, and responsive behavior are treated as part of the experience—not decoration added at the end.",
+  },
+  {
+    number: "03",
+    title: "Reliable foundations",
+    description:
+      "I value readable components, practical architecture, and details that keep a product fast and maintainable.",
+  },
+];
 
-    // Set initial size
-    handleResize();
+const workPreviewItems = [
+  { image: bookLifeImage, title: "Book Life", href: "#projects" },
+  { image: uiTubeImage, title: "UItube Platform", href: "#projects" },
+  { image: breedsmartImage, title: "BreedSmart", href: "#projects" },
+  { image: pfinderImage, title: "Iloilo Parking System", href: "#projects" },
+  { image: driftwall1, title: "UI-LearningHub", href: "#projects" },
+  { image: driftwall2, title: "BreedSmart Mobile", href: "#projects" },
+  { image: driftwall3, title: "Espresso Grove", href: "#projects" },
+];
 
-    // Add event listener
-    window.addEventListener("resize", handleResize);
+const About = () => (
+  <section
+    id="about"
+    className="portfolio-about"
+    aria-labelledby="about-title"
+    data-nav-theme="dark"
+    data-glow-color="#2563EB"
+    data-glow-secondary-color="#60A5FA"
+    data-glow-intensity="0.9"
+    data-glow-spread="1.7"
+    data-glow-hotspot="0.38"
+    data-glow-brightness="1.35"
+    data-glow-opacity="0.68"
+  >
+    <div className="portfolio-about__container">
+      <Motion.div
+        className="portfolio-about__intro-layout"
+        initial={{ opacity: 0, y: 42 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.3 }}
+        transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
+      >
+        <div className="portfolio-about__intro">
+          <p className="portfolio-about__eyebrow">About / John Lloyd Cabanig</p>
+          <h2 id="about-title" className="portfolio-about__title">
+            I build digital work that feels clear, useful, and alive.
+          </h2>
+        </div>
+        <aside
+          className="portfolio-about__work-preview"
+          aria-label="Future work preview"
+        >
+          <DriftWall
+            items={workPreviewItems}
+            columns={3}
+            tileWidth={200}
+            tileHeight={156}
+            gap={18}
+            radius={14}
+            direction="up"
+            speed={54}
+            variance={0.45}
+            tilt={6}
+            turn={-14}
+            roll={-2}
+            perspective={2400}
+            depth={120}
+            parallax={0.4}
+            lift={64}
+            fade={0.05}
+            dim={0.55}
+            pauseOnHover={false}
+            grayscale
+            overlayColor="#060010"
+          />
+        </aside>
+      </Motion.div>
 
-    // Cleanup
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
+      <div className="portfolio-about__story">
+        <Motion.div
+          className="portfolio-about__bio"
+          initial={{ opacity: 0, y: 28 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ delay: 0.08, duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
+        >
+          <p className="portfolio-about__lead">
+            I’m an aspiring full-stack developer and student at PHINMA
+            University of Iloilo, focused on turning ambitious ideas into
+            polished digital products.
+          </p>
+          <p>
+            My work sits between engineering and visual design. I enjoy shaping
+            responsive interfaces, building dependable application logic, and
+            using motion to make each interaction feel intentional. Every
+            project is a chance to learn deeply, simplify complexity, and ship
+            something people enjoy using.
+          </p>
+          <div className="portfolio-about__actions">
+            <a href="#projects" className="portfolio-about__cta">
+              Explore selected work{" "}
+              <ArrowUpRight size={15} aria-hidden="true" />
+            </a>
+          </div>
+        </Motion.div>
 
-  // Responsive configurations for Lanyard
-  const getLanyardConfig = () => {
-    switch (screenSize) {
-      case "mobile":
-        return {
-          position: [0, 0, 18], // closer (25 → 18)
-          fov: 15,
-          gravity: [0, -30, 0],
-          containerClass: "w-full h-[280px] sm:h-[300px]",
-        };
-
-      case "tablet":
-        return {
-          position: [0, 0, 20],
-          fov: 15,
-          gravity: [0, -35, 0],
-          containerClass: "w-full h-[320px] md:h-[350px]",
-        };
-      default:
-        return {
-          position: [0, 0, 12],
-          fov: 20,
-          gravity: [0, -40, 0],
-          containerClass: "w-full h-[400px] lg:h-[450px]",
-        };
-    }
-  };
-
-  const lanyardConfig = getLanyardConfig();
-
-  return (
-    <>
-      <style jsx>{`
-        .custom-scrollbar {
-          scrollbar-width: thin;
-          scrollbar-color: #d93f87 rgba(255, 255, 255, 0.1);
-        }
-
-        .custom-scrollbar::-webkit-scrollbar {
-          height: 6px;
-        }
-
-        .custom-scrollbar::-webkit-scrollbar-track {
-          background: rgba(255, 255, 255, 0.1);
-          border-radius: 3px;
-        }
-
-        .custom-scrollbar::-webkit-scrollbar-thumb {
-          background: #d93f87;
-          border-radius: 3px;
-        }
-
-        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-          background: #c1356f;
-        }
-      `}</style>
+        <Motion.div
+          className="portfolio-about__disciplines"
+          aria-label="How I approach my work"
+          initial={{ opacity: 0, y: 28 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ delay: 0.16, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+        >
+          {disciplines.map((discipline) => (
+            <article
+              key={discipline.number}
+              className="portfolio-about__discipline"
+            >
+              <span>{discipline.number}</span>
+              <div>
+                <h3>{discipline.title}</h3>
+                <p>{discipline.description}</p>
+              </div>
+            </article>
+          ))}
+        </Motion.div>
+      </div>
 
       <Motion.div
-        initial={{ opacity: 0, y: 30 }}
+        className="portfolio-about__stats"
+        aria-label="Key milestones"
+        initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-        viewport={{ once: false }}
-        className="mx-4 sm:mx-8 lg:mx-28 
-         px-4 sm:px-8 lg:px-20 sm:py-8 lg:py-12 mb-24"
+        viewport={{ once: true, amount: 0.35 }}
+        transition={{ delay: 0.12, duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
       >
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-12 items-center lg:divide-x lg:divide-[#D93F87]">
-          {/* Left side - About text */}
-          <Motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: false }}
-            className="space-y-4 sm:space-y-5 text-center lg:text-left order-2 lg:order-1"
-          >
-            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold  leading-tight page-title">
-              About Me
-            </h1>
-            <p className="text-sm sm:text-base lg:text-lg text-gray-300 leading-relaxed max-w-prose">
-              Hi, I'm John Lloyd P. Cabanig, a 3rd-year high school student at
-              PHINMA University of Iloilo. I enjoy exploring web development and
-              love building creative projects that are simple, interactive, and
-              fun to use. I'm still learning, but I'm passionate about improving
-              my skills and creating designs with smooth animations and clean
-              layouts.
-            </p>
-            {/* <div className="flex justify-center lg:justify-start pt-2">
-              <Socials />
-            </div> */}
-            <div className="flex justify-between pt-4 text-center">
-              <div>
-                <h1 className="text-2xl font-bold text-[#D93F87]">20+</h1>
-                <h3 className="text-sm text-gray-300">Projects Finished</h3>
-              </div>
-              <div>
-                <h1 className="text-2xl font-bold text-[#D93F87]">5+</h1>
-                <h3 className="text-sm text-gray-300">Technologies Learned</h3>
-              </div>
-              <div>
-                <h1 className="text-2xl font-bold text-[#D93F87]">100+</h1>
-                <h3 className="text-sm text-gray-300">Hours Coding</h3>
-              </div>
-            </div>
-          </Motion.div>
-
-          {/* Right side - Lanyard */}
-          <Motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            viewport={{ once: false, amount: 0.5 }}
-            className="flex justify-center items-center order-1 lg:order-2"
-          >
-            <div
-              className={`${lanyardConfig.containerClass} flex items-center justify-center `}
-            >
-              <Lanyard
-                position={lanyardConfig.position}
-                fov={lanyardConfig.fov}
-                gravity={lanyardConfig.gravity}
-                transparent={true}
-              />
-            </div>
-          </Motion.div>
-        </div>
+        {stats.map((stat) => (
+          <div key={stat.label} className="portfolio-about__stat">
+            <span className="portfolio-about__stat-value">{stat.value}</span>
+            <span className="portfolio-about__stat-label">{stat.label}</span>
+          </div>
+        ))}
+        <p className="portfolio-about__availability">
+          Based in Iloilo, Philippines
+          <span>Available for remote opportunities</span>
+        </p>
       </Motion.div>
-    </>
-  );
-};
+    </div>
+  </section>
+);
 
 export default About;
